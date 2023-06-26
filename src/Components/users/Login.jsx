@@ -70,7 +70,7 @@ export default function Login() {
                     <div className="mt-3">
                       <p className="mb-0  text-center">
                          Don't have an account? 
-                        <Link to="/register" className="text-primary"> Sign Up</Link>
+                        <Link to="/register" className="text-primary"> Sign up</Link>
                       
                       </p>
                     </div>
