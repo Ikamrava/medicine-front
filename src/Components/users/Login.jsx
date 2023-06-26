@@ -1,7 +1,30 @@
+import axios from 'axios';
+import { useState } from 'react';
 
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState(""); 
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(email, password);
+    axios.post("http://localhost:5086/api/Users/login", {
+      email,
+      password,
+     })
+     .then(res => {
+      console.log(res);
+      console.log(res.data);
+      localStorage.setItem("currentUser", JSON.stringify(res.data));
+      window.location.href = "/products";
+    
+  })
+  
+  }
   return (
     <div>
       <Container>
@@ -19,7 +42,7 @@ export default function Login() {
                         <Form.Label className="text-center">
                           Email address
                         </Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
                       </Form.Group>
 
                       <Form.Group
@@ -27,7 +50,7 @@ export default function Login() {
                         controlId="formBasicPassword"
                       >
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                       </Form.Group>
                       <Form.Group
                         className="mb-3"
@@ -40,17 +63,16 @@ export default function Login() {
                         </p>
                       </Form.Group>
                       <div className="d-grid">
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" onClick={handleSubmit}>
                           Login
                         </Button>
                       </div>
                     </Form>
                     <div className="mt-3">
                       <p className="mb-0  text-center">
-                        Don't have an account?{" "}
-                        <a href="{''}" className="text-primary fw-bold">
-                          Sign Up
-                        </a>
+                        Don't have an account? 
+                        <Link to="/register" className="text-primary"> Sign Up</Link>
+                      
                       </p>
                     </div>
                   </div>

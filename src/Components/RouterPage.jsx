@@ -29,8 +29,7 @@ function RouterPage() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/products" element={<Products />} />
-
-
+        
         <Route path="/admindashboard" element={<AdminDashbord />} />
         <Route path="/adminorders" element={<AdminOrders />} />
         <Route path="/customerlist" element={<CustomerList />} />

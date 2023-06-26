@@ -1,9 +1,21 @@
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Avatar from 'react-avatar';
 
 function NavBar() {
+  const [activeUser, setActiveUser] = useState(null || JSON.parse(localStorage.getItem('currentUser')));
+
+  function logoutHandler() {
+    localStorage.removeItem('currentUser');
+    setActiveUser(null);
+    window.location.href = "/";
+
+  }
+
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -25,6 +37,18 @@ function NavBar() {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
+
+          {activeUser && 
+               <Avatar name={activeUser.user.email}  size={35} round={true} className="mx-5" />
+             }
+             {activeUser && 
+             
+               <NavDropdown title={activeUser.user.firstName} id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Dashboard</NavDropdown.Item>
+                <NavDropdown.Item onClick={logoutHandler}>LogOut</NavDropdown.Item>
+               </NavDropdown>
+           
+             }
         </Navbar.Collapse>
       </Container>
     </Navbar>
