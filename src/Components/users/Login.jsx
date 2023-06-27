@@ -11,14 +11,12 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
+    
     axios.post("http://localhost:5086/api/Users/login", {
       email,
       password,
      })
      .then(res => {
-      console.log(res);
-      console.log(res.data);
       localStorage.setItem("currentUser", JSON.stringify(res.data));
       window.location.href = "/products";
     
